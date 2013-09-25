@@ -14,33 +14,47 @@
 
 public class ProblemFive {
 	public static void main(String[] args) {
-		
+		int[][] factors = new int[2][11];
 		// start with 1 to 10, find prime factors for each
 		for( int i = 1; i < 11; i++) {
-			System.out.println("Number: " + i);
-			primeFactors(i);
+			int[][] currentFactors = new int[2][11];
+			System.out.println("Number = " + i);
+			currentFactors = primeFactors(i, currentFactors);
+			for( int j = 0; j < currentFactors[1].length; j++) {
+				if( currentFactors[0][j] != 0) {
+					System.out.println( "Current Factor: " + currentFactors[0][j] + " Power: " + currentFactors[1][j]);
+				}
+			}
+			// compare current factor list to factor list
+			for( int j = 0; j < currentFactors[1].length; j++) {
+				
+			}
 			System.out.println("-----");
 		}
-		
-		
+
 	}
-	/*
-	 * Function that prints the prime factorization of the 
-	 * given number to the console
-	*/
-	public static long primeFactors(long number) {
-	/*
-	 * Prime number is one that is divisible only
-	 * by 1 and itself
-	 * 
-	 * Test if number is prime using trial division
-	 * - test whether number is a multiple of any integer between 2
-	 *   and number^(1/2)
-	*/
+   /*
+ 	* Function that prints the prime factorization of the 
+ 	* given number to the console
+ 	*/
+	public static int[][] primeFactors(long number, int[][] factors) {
+		/*
+		 * Prime number is one that is divisible only
+		 * by 1 and itself
+		 * 
+		 * Test if number is prime using trial division
+		 * - test whether number is a multiple of any integer between 2
+		 *   and number^(1/2)
+		 */
 		double x; long y;
-	
+
 		// check if number is prime, if true done
-		if( isPrime(number)) { System.out.println("Prime Factor = " + number); return number; }
+		if( isPrime(number)) { 
+//			System.out.println("Prime Factor = " + number);
+			// add to factor list, if already found increment power
+			factors = addFactor( number, factors);
+			return factors; 
+		}
 			
 		// find square root (trial division), round, convert back to int
 		x = Math.sqrt(number);
@@ -52,14 +66,36 @@ public class ProblemFive {
 				// check that factor is prime
 				if( isPrime(i)) {
 					// print factor to console
-					System.out.println("Prime Factor = " + i);
+//					System.out.println("Prime Factors = " + i);
+					factors = addFactor( i, factors);
 					// divide out
 					number = number / i;
-					number = primeFactors( number);
+					primeFactors( number, factors);
 				}
 			 }
 		}
-		return number;
+		return factors;
+	}
+	
+	public static int[][] addFactor(long number, int[][] factors) {
+		// check if factor is already present
+		for( int i = 0; i < factors[1].length; i++) {
+			if( factors[0][i] == number) {
+				// increment power
+				factors[1][i]++;
+//				System.out.println("Factor: " + factors[0][i] + " Power = " + factors[1][i]);
+				return factors;
+				
+			}
+			else if( factors[0][i] == 0) {
+				factors[0][i] = (int)number;
+				factors[1][i] = 1;
+//				System.out.println("Factor: " + factors[0][i] + " Power = " + factors[1][i]);;
+				return factors;
+			}
+			
+		}
+		return factors;
 	}
 			
 	/*
@@ -76,16 +112,16 @@ public class ProblemFive {
 		 *   and number^(1/2)
 		 */
 		double x; long y;
-		
+			
 		// find square root, round, convert back to int
 		x = Math.sqrt(number);
 		y = (long)Math.round(x);
-		
+			
 		for( int i = 2; i <= y; i++) {
 			// check if current i is divisor of number
 			if( number % i == 0) { return false; }
 		}
 		// number is prime
 		return true;
-		}
+	}
 }
