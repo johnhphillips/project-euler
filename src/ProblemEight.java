@@ -29,7 +29,7 @@ public class ProblemEight {
 		// start with 7316717653 and window of 2 with largest product = 42
 		String number = "";
 		// number of consecutive digits to consider when finding product
-		int window = 2;
+		int window = 5;
 		
 		// read number in line by line from text file
 		try {
@@ -60,7 +60,7 @@ public class ProblemEight {
 				innerProduct = innerProduct * Integer.parseInt(digits[j]);
 			}
 			if( innerProduct >= product) { product = innerProduct; }
-			System.out.println("Inner product: " + innerProduct );
+//			System.out.println("Inner product: " + innerProduct );
 		}
 		System.out.println("Greatest product = " + product);
 
