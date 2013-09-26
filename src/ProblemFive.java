@@ -50,11 +50,17 @@ public class ProblemFive {
 			}
 //			System.out.println("-----");
 		}
+		long answer = 1L;
 		for( int j = 0; j < factors[1].length; j++) {
+			int power = factors[1][j];
 			if( factors[0][j] != 0) {
-				System.out.println( "Factor: " + factors[0][j] + " Power: " + factors[1][j]);
+				while( power != 0) {
+					answer = answer * factors[0][j];
+					power--;
+				}
 			}
 		}
+		System.out.println( answer);
 
 	}
    /*
