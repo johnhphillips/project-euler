@@ -14,22 +14,46 @@
 
 public class ProblemFive {
 	public static void main(String[] args) {
-		int[][] factors = new int[2][11];
+		int[][] factors = new int[2][21];
 		// start with 1 to 10, find prime factors for each
-		for( int i = 1; i < 11; i++) {
-			int[][] currentFactors = new int[2][11];
-			System.out.println("Number = " + i);
+		for( int i = 1; i < 21; i++) {
+			int[][] currentFactors = new int[2][21];
+//			System.out.println("Number = " + i);
 			currentFactors = primeFactors(i, currentFactors);
-			for( int j = 0; j < currentFactors[1].length; j++) {
-				if( currentFactors[0][j] != 0) {
-					System.out.println( "Current Factor: " + currentFactors[0][j] + " Power: " + currentFactors[1][j]);
-				}
-			}
+//			for( int j = 0; j < currentFactors[1].length; j++) {
+//				if( currentFactors[0][j] != 0) {
+//					System.out.println( "Current Factor: " + currentFactors[0][j] + " Power: " + currentFactors[1][j]);
+//				}
+//			}
 			// compare current factor list to factor list
 			for( int j = 0; j < currentFactors[1].length; j++) {
-				
+				for( int k = 0; k < factors[1].length; k++) {
+					// if the same factor check the power and choose the highest
+					if( currentFactors[0][j] == factors[0][k] && currentFactors[0][j] != 0) {
+						if( currentFactors[1][j] >= factors[1][k]) {
+//							System.out.println("Changing: " + factors[0][k] + "^" + factors[1][k] + " to " + currentFactors[0][j] + "^" + currentFactors[1][j]);
+							factors[1][k] = currentFactors[1][j];
+							break;
+						}
+					}
+					// if factor has smaller power, ignore
+					else if( currentFactors[0][j] < factors[0][k] ) {
+						break;
+					}
+					// end of factor list
+					else if( factors[0][k] == 0) {
+						factors[0][k] = currentFactors[0][j];
+						factors[1][k] = currentFactors[1][j];
+						break;
+					}
+				}
 			}
-			System.out.println("-----");
+//			System.out.println("-----");
+		}
+		for( int j = 0; j < factors[1].length; j++) {
+			if( factors[0][j] != 0) {
+				System.out.println( "Factor: " + factors[0][j] + " Power: " + factors[1][j]);
+			}
 		}
 
 	}
@@ -47,7 +71,7 @@ public class ProblemFive {
 		 *   and number^(1/2)
 		 */
 		double x; long y;
-
+//		System.out.println(number);
 		// check if number is prime, if true done
 		if( isPrime(number)) { 
 //			System.out.println("Prime Factor = " + number);
@@ -71,6 +95,7 @@ public class ProblemFive {
 					// divide out
 					number = number / i;
 					primeFactors( number, factors);
+					break;
 				}
 			 }
 		}
