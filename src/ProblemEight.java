@@ -50,19 +50,13 @@ public class ProblemEight {
 		// position 0 is empty and will be ignored
 		String[] digits = number.split("");
 		int product = 0;
-		System.out.println("Number " + number);
 		for( int i = 1; i < (digits.length - window + 1); i++) {
 			int innerProduct = Integer.parseInt(digits[i]);
-//			System.out.println("i " + i);
 			for( int j = (i + 1); j < (i + window); j++) {
-//				System.out.println("i " + i + " j " + j);
-//				System.out.println(digits[j] + " " + digits[j+1]);
 				innerProduct = innerProduct * Integer.parseInt(digits[j]);
 			}
 			if( innerProduct >= product) { product = innerProduct; }
-//			System.out.println("Inner product: " + innerProduct );
 		}
 		System.out.println("Greatest product = " + product);
-
 	}
 }
