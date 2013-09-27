@@ -26,7 +26,6 @@ import java.io.*;
 
 public class ProblemEight {
 	public static void main(String[] args) {
-		// start with 7316717653 and window of 2 with largest product = 42
 		String number = "";
 		// number of consecutive digits to consider when finding product
 		int window = 5;
